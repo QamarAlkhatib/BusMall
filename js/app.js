@@ -65,20 +65,20 @@ imgthird.addEventListener('click', clickHandler);
 
 
 function clickHandler(event) {
-    if (attempt <= maxAttempts) {
+    if (attempt < maxAttempts) {
         let clickedImage = event.target.id;
         if (clickedImage === 'imgf') {
-            productImges[firstImg].votes++;
+            productImges[firstImg].click++;
         } else if (clickedImage === 'imgs') {
-            productImges[secImg].votes++
+            productImges[secImg].click++
         }
         else if (clickedImage === 'imgt') {
-            productImges[thirdImg].votes++
+            productImges[thirdImg].click++
 
         }
         renderImg();
         attempt++;
-        attemptEl.textContent = 'Attempts = ${attempt';
+        attemptEl.textContent = `Attempts: ${attempt}`;
     } else {
 
         imgfirst.removeEventListener('click', clickHandler);
@@ -95,7 +95,7 @@ function resultInButton(event){
     for( let i = 0; i < productImges.length; i++){
         let liEl = document.createElement('li');
        result.appendChild(liEl);
-       liEl.textContent = `${productImges[i].productName} has ${productImges[i].votes} votes and  ${productImges[i].views} views.`;
+       liEl.textContent = `${productImges[i].productName} has ${productImges[i].click} click and  ${productImges[i].views} views.`;
    }
     }
 
