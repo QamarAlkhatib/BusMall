@@ -13,17 +13,22 @@ let product = ['bag.jpg', 'banana.jpg', 'bathroom.jpg', 'boots.jpg', 'breakfast.
 
 let maxAttempts = 25;
 let attempt = 1;
-let productImges = []
+let productImges = [];
+let pNames = [];
+let click = [];
+let views = [];
 
-function productImage(productName) {
+function ProductImage(productName) {
     this.productName = productName.split('.')[0];
     this.src = `images/${productName}`;
     this.views = 0;
     this.click = 0;
     productImges.push(this);
+    pNames.push(this.productName);
+
 }
 for (let i = 0; i < product.length; i++) {
-    new productImage(product[i]);
+    new ProductImage(product[i]);
 }
 
 
@@ -84,7 +89,7 @@ function clickHandler(event) {
         imgfirst.removeEventListener('click', clickHandler);
         imgsecond.removeEventListener('click', clickHandler);
         imgthird.removeEventListener('click', clickHandler);
-
+        
     }
 }
 
@@ -95,7 +100,51 @@ function resultInButton(event){
     for( let i = 0; i < productImges.length; i++){
         let liEl = document.createElement('li');
        result.appendChild(liEl);
-       liEl.textContent = `${productImges[i].productName} has ${productImges[i].click} click and  ${productImges[i].views} views.`;
-   }
+       liEl.textContent = `${productImges[i].productName} has ${productImges[i].click} votes and  ${productImges[i].views} views.`;
+       views.push(productImges[i].views);
+       click.push(productImges[i].click);
     }
+    chartRender();
+   }
 
+
+function chartRender(){
+let ctx = document.getElementById('myChart').getContext('2d');
+let myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: pNames,
+        datasets: [{
+            label: '# of Votes',
+            data: click,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                
+            ],
+            borderWidth: 1
+        }, {
+            label: '# of views',
+            data: views,
+            backgroundColor: [
+                'rgba(54, 162, 235, 0.2)'
+            ],
+            borderColor: [
+                'rgba(54, 162, 235, 1)'
+            ],
+            borderWidth: 1
+
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+}
