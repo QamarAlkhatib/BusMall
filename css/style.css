@@ -51,7 +51,7 @@ p{
   background-color: rgb(112, 145, 182);
   margin-left: 1080px;
   margin-top: 20px;
-  padding:5px;
+  padding:7px;
   border-radius: 20px;
   font-weight: bolder;
 }
@@ -63,4 +63,11 @@ p{
   font-size: 18px;
   font-weight: bolder;
 }
-
+#attempts{
+  color: rgb(255, 255, 255);
+  font-size:15px;
+  font-weight: bolder;
+  margin-left: 40px;
+  background-color: rgb(255, 38, 0);
+padding: 10px;
+}
