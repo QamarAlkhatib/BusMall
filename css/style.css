@@ -12,9 +12,10 @@ h1{
     margin-bottom: 30px;
 }
 p{
-  background-color: rgb(153, 207, 153);
-    padding: 20px;
-    
+  /* background-color: rgb(153, 207, 153); */
+  background-color: rgb(181, 207, 247);;
+  padding: 20px;
+  font-size: 20px;
   text-align: center;
   
 }
@@ -44,16 +45,17 @@ p{
   height: 300px;
 }
 #viewResults {
-  background-color: #00000020;
+  
   width: 100px;
   height: auto;
   min-height: 30px;
-  background-color: rgb(112, 145, 182);
+  background-color: rgb(187, 149, 229);
   margin-left: 1080px;
   margin-top: 20px;
   padding:7px;
   border-radius: 20px;
   font-weight: bolder;
+  color: #000000;
 }
 #results{
   width: 480px;
@@ -70,4 +72,22 @@ p{
   margin-left: 40px;
   background-color: rgb(255, 38, 0);
 padding: 10px;
+}
+
+h3{
+  color: #ffffff;
+  background-color: rgb(112, 161, 235);
+  text-align: left;
+  margin-top: 20px;
+  padding: 10px;
+  font-size: 20px;
+  font-weight: bolder;
+}
+#images{
+  background-color: rgb(255, 255, 255);
+  text-align: left;
+  
+  padding: 10px;
+  font-size: 20px;
+}
 }
