@@ -3,39 +3,55 @@ let imageContainer = document.getElementById('imagecontainer');
 let imgfirst = document.getElementById('imgf');
 let imgsecond = document.getElementById('imgs');
 let imgthird = document.getElementById('imgt');
-
 let showResults = document.getElementById('viewResults');
 let result = document.getElementById('results');
-
 let attemptEl = document.getElementById('attempts');
-
 let product = ['bag.jpg', 'banana.jpg', 'bathroom.jpg', 'boots.jpg', 'breakfast.jpg', 'bubblegum.jpg', 'chair.jpg', 'cthulhu.jpg', 'dog-duck.jpg', 'dragon.jpg', 'pen.jpg', 'pet-sweep.jpg', 'scissors.jpg', 'shark.jpg', 'sweep.png', 'tauntaun.jpg', 'unicorn.jpg', 'water-can.jpg', 'wine-glass.jpg'];
+let ulEL = document.getElementById('images')
 
 let maxAttempts = 25;
 let attempt = 1;
-let productImges = [];
+let images = [];
 let pNames = [];
 let click = [];
 let views = [];
 let storedImg = [];
+
+for (let i = 0; i < product.length; i++) {
+    new ProductImage(product[i]);
+}
+
+function saveToLocalStorage(){
+    let data = JSON.stringify(images);
+    localStorage.setItem('images', data);
+}
+
+function readFromLocalStorage(){
+    let stringObj = localStorage.getItem('images');
+    let normalObj = JSON.parse(stringObj);
+
+    if 
+    (normalObj){
+        images = normalObj;
+    }
+}
+readFromLocalStorage();
+
 
 function ProductImage(productName) {
     this.productName = productName.split('.')[0];
     this.src = `images/${productName}`;
     this.views = 0;
     this.click = 0;
-    productImges.push(this);
+    images.push(this);
     pNames.push(this.productName);
 }
 
-for (let i = 0; i < product.length; i++) {
-    new ProductImage(product[i]);
-}
 
 function randomImage() {
-    return Math.floor(Math.random() * productImges.length);
+    return Math.floor(Math.random() * images.length);
 }
-console.log(productImges);
+console.log(images);
 
 let firstImg;
 let secImg;
@@ -57,15 +73,15 @@ function renderImg() {
 
     console.log(storedImg);
     
-    imgfirst.setAttribute('src', productImges[firstImg].src);
-    imgsecond.setAttribute('src', productImges[secImg].src);
-    imgthird.setAttribute('src', productImges[thirdImg].src);
+    imgfirst.setAttribute('src', images[firstImg].src);
+    imgsecond.setAttribute('src', images[secImg].src);
+    imgthird.setAttribute('src', images[thirdImg].src);
 
 
 
-    productImges[firstImg].views++;
-    productImges[secImg].views++;
-    productImges[thirdImg].views++;
+    images[firstImg].views++;
+    images[secImg].views++;
+    images[thirdImg].views++;
 
 }
 renderImg()
@@ -79,12 +95,12 @@ function clickHandler(event) {
     if (attempt < maxAttempts) {
         let clickedImage = event.target.id;
         if (clickedImage === 'imgf') {
-            productImges[firstImg].click++;
+            images[firstImg].click++;
         } else if (clickedImage === 'imgs') {
-            productImges[secImg].click++
+            images[secImg].click++
         }
         else if (clickedImage === 'imgt') {
-            productImges[thirdImg].click++
+            images[thirdImg].click++
 
         }
         renderImg();
@@ -99,20 +115,20 @@ function clickHandler(event) {
     }
 }
 
-
-
-
 showResults.addEventListener('click', resultInButton);
+
 function resultInButton(event) {
     event.preventDefault();
-
-    for (let i = 0; i < productImges.length; i++) {
+    ulEL.textContent ='';
+    for (let i = 0; i < images.length; i++) {
         let liEl = document.createElement('li');
         result.appendChild(liEl);
-        liEl.textContent = `${productImges[i].productName} has ${productImges[i].click} votes and  ${productImges[i].views} views.`;
-        views.push(productImges[i].views);
-        click.push(productImges[i].click);
+        liEl.textContent = `${images[i].productName} has ${images[i].click} votes and  ${images[i].views} views.`;
+        views.push(images[i].views);
+        click.push(images[i].click);
+        ulEL.appendChild(liEl);
     }
+    saveToLocalStorage();
     chartRender();
 }
 
